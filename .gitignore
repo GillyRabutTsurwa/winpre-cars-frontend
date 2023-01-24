@@ -10,3 +10,5 @@ dist
 package-lock.json
 README.md
 tsconfig.json
+# Local Netlify folder
+.netlify
