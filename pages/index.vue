@@ -4,6 +4,7 @@
       <Banner />
       <Second />
       <Third />
+      <span>TEST GITHUB SUBMODULES</span>
 
       <div v-for="currentCar in state.cars" :key="currentCar._id">
         {{ currentCar.title }}
