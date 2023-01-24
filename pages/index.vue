@@ -5,6 +5,8 @@
       <Second />
       <Third />
 
+      <span>Testing Automatic Deployment via Netlify.</span>
+
       <div v-for="currentCar in state.cars" :key="currentCar._id">
         {{ currentCar.title }}
       </div>
