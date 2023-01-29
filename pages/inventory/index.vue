@@ -1,16 +1,157 @@
 <template>
-  <div>
-    <span>Car index Page</span>
-  </div>
+  <menu class="car-list">
+    <li v-for="currentCar in state.cars" :key="currentCar._id" class="car-list__item">
+      <div class="car-list__item--image">
+        <SanityImage :asset-id="currentCar.defaultCarData.images[0].asset._ref" />
+      </div>
+      <h2 class="title">{{ `${currentCar.year} ${currentCar.brand} ${currentCar.model}` }}</h2>
+      <div class="car-list__item--data">
+        <p class="price">
+          <img src="~/assets/svg/money-bag.svg" alt="" class="moneybag-logo">
+          <span> &dollar;{{ currentCar.price }}</span>
+        </p>
+        <p class="mileage">
+          <img src="~/assets/svg/speedometre.svg" alt="" class="speedometre-logo">
+          <span>{{ currentCar.defaultCarData.mileage }} miles</span>
+        </p>
+      </div>
+      <hr>
+      <div class="car-list__item--links">
+        <NuxtLink :to="`/inventory/car/${currentCar.slug.current}`" class="btn-primary">More Info</NuxtLink>
+        <a href="#" class="btn-primary">Request Info</a>
+      </div>
+    </li>
+  </menu>
 </template>
 
-<script>
-export default {
-  setup() {
-    return {};
-  },
-};
+<script setup>
+const route = useRoute();
+console.log(route);
+console.log(route.query);
+
+//capitalise helper function. eventually put in own composable
+const capitalise = (str) => `${str.charAt(0).toUpperCase()}${str.substring(1)}`;
+
+let queryProperty;
+let queryValue;
+
+for (const key in route.query) {
+  if (Object.hasOwnProperty.call(route.query, key)) {
+    const element = route.query[key];
+    console.log(key, element);
+    queryProperty = key;
+    queryValue = queryProperty === "brand" ? capitalise(element) : element;
+  }
+}
+
+console.log(queryProperty, queryValue);
+
+const state = reactive({
+  cars: [],
+});
+const query = route.query ? `*[_type == "car" && ${queryProperty} == "${queryValue}"]` : `*[_type == "car"]`;
+const { data, error } = await useSanityQuery(query);
+if (error.value) throw new Error(`Error Tings: ${error.value}`);
+
+console.log(data);
+state.cars = data.value;
+console.log(state.cars);
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
+.car-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(45rem, 47.5rem));
+  gap: 4rem;
+
+  padding: 5rem 0 30rem 4rem; //NOTE: for now
+
+  &__item {
+    height: 50rem;
+    box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 15%);
+
+    &--image {
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .title {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    &--data {
+      display: flex;
+      align-content: center;
+      justify-content: space-around;
+      margin-top: 1.75rem;
+      margin-bottom: 3rem;
+
+      .mileage,
+      .price {
+        display: flex;
+        align-items: center;
+
+        img {
+          margin-right: 1rem;
+          height: 2.25rem;
+        }
+
+        span {
+          font-size: 2rem;
+        }
+      }
+      .mileage {
+        .speedometre-logo {
+          filter: invert(23%) sepia(80%) saturate(2901%) hue-rotate(355deg) brightness(101%) contrast(81%);
+        }
+        span {
+          // font-size: 2.5rem;
+        }
+      }
+      .price {
+        .moneybag-logo {
+          // NOTE; repeated code above. put in mixin or extends later
+          filter: invert(23%) sepia(80%) saturate(2901%) hue-rotate(355deg) brightness(101%) contrast(81%);
+        }
+        span {
+          // font-size: 2.5rem;
+        }
+      }
+    }
+
+    hr {
+      background-color: $colour-primary;
+      border-color: $colour-primary;
+    }
+
+    &--links {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 3rem;
+    }
+  }
+}
+//TODO; make mixin or extends this code is being used multiple places
+.btn-primary {
+  &,
+  &:link,
+  &:visited {
+    cursor: pointer;
+    display: inline-block;
+    color: $colour-blanc;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 400;
+    border-radius: 2.5rem;
+    padding: 1.4rem 2.8rem;
+    border: none;
+    background-color: $colour-primary;
+  }
+}
 </style>

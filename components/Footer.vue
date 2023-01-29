@@ -42,14 +42,8 @@
 /**
  * NOTE: using props keep track of the mode in the footer
  * but more importantly, i'm using it to dynamically change the logo in the footer
+ * NOTEIMPORTANT: the code for defining the props has been removed to be used later
  */
-const props = defineProps({
-  mode: {
-    type: String,
-    required: true,
-  },
-});
-console.log(props.mode);
 
 //NOTE: for copyright statement
 const currentYear = computed(() => {

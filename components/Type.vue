@@ -1,7 +1,7 @@
 <template>
   <ul class="type-container">
     <li v-for="(currentType, index) in typeLogos" :key="index" class="type">
-      <NuxtLink :to="`/${currentType}`" aria-disabled="true">
+      <NuxtLink :to="{path: 'inventory', query: {type: currentType}}" aria-disabled="true">
         <img :src="types[currentType]">
         <h4>{{ typeNameText[index] }}</h4>
       </NuxtLink>
@@ -16,7 +16,7 @@ const glob = import.meta.glob("~/assets/svg/*.svg", { eager: true });
 const types = Object.fromEntries(Object.entries(glob).map(([key, value]) => [filename(key), value.default]));
 
 const typeName = "sedan";
-console.log(types[typeName]);
+console.log(types[typeName]); //TESTINGPASS
 const typeLogos = ["sedan", "suv", "hatchback", "sports-car", "truck"];
 const typeNameText = ["Sedan", "SUV", "Hatchback", "Sports Car", "Pick-up Truck"];
 </script>

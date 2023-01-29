@@ -7,7 +7,7 @@
     </div>
     <ul class="links-main">
       <li class="links-main--item">
-        <NuxtLink to="/cars">Cars</NuxtLink>
+        <NuxtLink to="/inventory">Cars</NuxtLink>
       </li>
       <li class="links-main--item">
         <NuxtLink to="/about">About Us</NuxtLink>

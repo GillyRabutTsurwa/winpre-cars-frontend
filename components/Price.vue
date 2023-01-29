@@ -1,9 +1,9 @@
 <template>
   <ul class="price-container">
     <li v-for="(currentPrice, index) in priceRanges" :key="index" class="price">
-      <NuxtLink :to="`/${currentPrice}`">
+      <NuxtLink :to="{path: `inventory`, query: {priceLevel: currentPrice.level}}">
         <img :src="types[iconName]" alt="">
-        <h4>{{ currentPrice }}</h4>
+        <h4>{{ currentPrice.range }}</h4>
       </NuxtLink>
     </li>
   </ul>
@@ -11,7 +11,32 @@
 
 <script setup>
 import { filename } from "pathe/utils";
-const priceRanges = ["< $4,999", "$5000 - $9,999", "$10000 - $14,999", "$15000 - $19,999", "$20,000 - $24,999", "> $25000"];
+const priceRanges = [
+  {
+    range: "< $4,999",
+    level: "first",
+  },
+  {
+    range: "$5000 - $9,999",
+    level: "second",
+  },
+  {
+    range: "$10000 - $14,999",
+    level: "third",
+  },
+  {
+    range: "$15000 - $19,999",
+    level: "fourth",
+  },
+  {
+    range: "$20,000 - $24,999",
+    level: "fifth",
+  },
+  {
+    range: "> $25000",
+    level: "sixth",
+  },
+];
 
 const glob = import.meta.glob("~/assets/svg/*.svg", { eager: true });
 const types = Object.fromEntries(Object.entries(glob).map(([key, value]) => [filename(key), value.default]));

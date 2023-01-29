@@ -1,7 +1,10 @@
 <template>
   <div class="brand-container">
     <figure v-for="(currentLogo, index) in logos" :key="index">
-      <NuxtLink :to="`/${currentLogo}`" aria-disabled="true">
+      <!-- <NuxtLink :to="`/${currentLogo}`" aria-disabled="true">
+        <img :src="images[currentLogo]" />
+      </NuxtLink> -->
+      <NuxtLink :to="{path:'inventory', query: { brand: currentLogo}}" aria-disabled="true">
         <img :src="images[currentLogo]" />
       </NuxtLink>
     </figure>
