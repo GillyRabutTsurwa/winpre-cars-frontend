@@ -15,11 +15,15 @@
     </article>
     <ul class="links-footer__contact">
       <h4 class="links-footer__subtitle">Contact Us</h4>
-      <li class="links-footer--item">Home</li>
-      <li class="links-footer--item">Inventory</li>
-      <li class="links-footer--item">About Us</li>
-      <li class="links-footer--item">Testimonials</li>
-      <li class="links-footer--item">Contact</li>
+      <li class="links-footer--item phone">
+        <img src="~/assets/svg/phone.svg" alt="">
+        <span>540-773-1773</span>
+      </li>
+      <li class="links-footer--item email">
+        <img src="~/assets/svg/mail.svg" alt="">
+        <span>winprecars@yahoo.com</span>
+      </li>
+
     </ul>
     <ul class="links-footer__follow">
       <h4 class="links-footer__subtitle">Follow Us</h4>
@@ -54,7 +58,8 @@ const currentYear = computed(() => {
   <style lang="scss" scoped>
 .footer {
   width: 100%;
-  height: 60rem;
+  // height: 60rem;
+  height: 65vh;
   // padding: 0 4rem;
 
   display: grid;
@@ -94,6 +99,13 @@ const currentYear = computed(() => {
 
     &__contact {
       grid-column: 2 / 3;
+      display: flex;
+      flex-direction: column;
+
+      //TODO: adjust css code to be cleaner later
+      & > *:not(:last-child) {
+        margin-bottom: 1rem;
+      }
     }
 
     &__follow {
@@ -109,10 +121,26 @@ const currentYear = computed(() => {
       margin-right: 1.5rem;
       color: #fff;
       text-decoration: none;
-      text-transform: uppercase;
+      // text-transform: uppercase;
       display: inline-block;
       // -webkit-transition: all 0.2s;
       // transition: all 0.2s;
+      &.phone {
+        img {
+          height: 1.5rem;
+          margin-right: 1rem;
+          filter: invert(23%) sepia(80%) saturate(2901%) hue-rotate(355deg) brightness(101%) contrast(81%);
+        }
+      }
+      // NOTE: REPEATED code.
+      // TODO: refactor later
+      &.email {
+        img {
+          height: 1.5rem;
+          margin-right: 1rem;
+          filter: invert(23%) sepia(80%) saturate(2901%) hue-rotate(355deg) brightness(101%) contrast(81%);
+        }
+      }
     }
   }
 

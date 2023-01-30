@@ -13,7 +13,7 @@
         <NuxtLink to="/about">About Us</NuxtLink>
       </li>
       <li class="links-main--item">
-        <NuxtLink to="/">Contact</NuxtLink>
+        <NuxtLink to="/contact">Contact</NuxtLink>
       </li>
       <!-- <DevOnly>
         <li @click="toggleMode" class="links-main--item mode">{{mode}} Mode</li>
