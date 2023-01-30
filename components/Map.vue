@@ -10,6 +10,12 @@ const state = reactive({
   map: null,
 });
 
+// TESTING solution for icon not showing in prod
+//NOTE: if it works, i got solution here: https://stackoverflow.com/questions/60174040/marker-icon-isnt-showing-in-leaflet
+const myIcon = L.icon({
+  iconUrl: "marker-icon.png",
+});
+
 const locationCoordinates = [39.17529070604941, -78.16598554417936]; //NOTE: don't need to be reactive. not changing
 
 onMounted(() => {
@@ -30,7 +36,7 @@ onMounted(() => {
   }).addTo(state.map);
 
   // NOTE: and this displays the map marker
-  L.marker(locationCoordinates)
+  L.marker(locationCoordinates, { icon: myIcon })
     .addTo(state.map)
     .bindPopup("<span class='orange'>We Are Here.<br> Just Outside Downtown Winchester.</span>")
     .openPopup();
