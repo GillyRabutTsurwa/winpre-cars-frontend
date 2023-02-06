@@ -18,7 +18,7 @@ const images = Object.fromEntries(Object.entries(glob).map(([key, value]) => [fi
 
 const imageName = "bmw";
 console.log(images[imageName]);
-const logos = ["mitsubishi", "bmw", "hyundai", "honda", "nissan", "kia", "chevrolet", "ford"];
+const logos = ["toyota", "honda", "hyundai", "chevrolet", "kia", "dodge", "mazda", "ford"];
 </script>
 
 
@@ -36,6 +36,13 @@ const logos = ["mitsubishi", "bmw", "hyundai", "honda", "nissan", "kia", "chevro
     width: 15rem;
     height: 15rem;
     margin-right: 15rem;
+    // NOTE: found grayscaling solution for svgs thanks to: https://codepen.io/sosuke/pen/Pjoqqp
+    //NOTE: the colour I put in the input was #444
+    filter: invert(24%) sepia(2%) saturate(0%) hue-rotate(342deg) brightness(96%) contrast(86%);
+
+    &:hover {
+      filter: none;
+    }
   }
 }
 </style>
