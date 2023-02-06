@@ -2,10 +2,24 @@
   <div class="contact">
     <h2 class="contact__title">Contact Us</h2>
     <menu class="contact__list">
-      <li class="contact__list--item"> <span>Office:</span><span>540-773-1773</span></li>
-      <li class="contact__list--item"> <span>Cell (Saber):</span><span>540-542-9894</span> </li>
-      <li class="contact__list--item"> <span>Cell (Liliya):</span><span>304-657-2180</span></li>
-      <li class="contact__list--item"> <span>Email:</span><span>winprecars@yahoo.com</span></li>
+      <li class="contact__list--item">
+        <span>Office:</span>
+        <span><a href="tel:+5407731773">540-773-1773</a></span>
+      </li>
+      <li class="contact__list--item">
+        <span>Cell (Saber):</span>
+        <span><a href="tel:+5405429894">540-542-9894</a></span>
+      </li>
+      <!-- <li class="contact__list--item"> <span>Cell (Liliya):</span><span>304-657-2180</span></li> -->
+      <li class="contact__list--item">
+        <span>Cell (Liliya):</span>
+        <span><a href="tel:+6124506115">304-657-2180</a></span>
+      </li>
+      <li class="contact__list--item">
+        <span>Email:</span>
+        <!-- NOTE: cool things I learnt about mailto links: https://css-tricks.com/snippets/html/mailto-links/ -->
+        <span><a href="mailto:winprecars@yahoo.com">winprecars@yahoo.com</a></span>
+      </li>
     </menu>
   </div>
 </template>
@@ -47,6 +61,19 @@
 
         &:nth-child(2) {
           color: $colour-primary;
+        }
+      }
+
+      a {
+        &,
+        &:link,
+        &:visited {
+          color: currentColor;
+          text-decoration: none;
+        }
+        &:hover,
+        &:active {
+          color: rgba($colour-primary, 0.8);
         }
       }
     }
