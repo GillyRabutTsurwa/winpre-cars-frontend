@@ -18,7 +18,8 @@
       <hr>
       <div class="car-list__item--links">
         <NuxtLink :to="`/inventory/car/${currentCar.slug.current}`" class="btn-primary">More Info</NuxtLink>
-        <a href="#" class="btn-primary">Request Info</a>
+        <!-- NEWNOTE: using the mailto links truc i just learnt to redirect user to an email with a dynamic subject based on car clicked. very neat -->
+        <a :href="`mailto:winprecars@yahoo.com?subject=Requesting%20Info%20on%20${currentCar.year} ${currentCar.brand} ${currentCar.model}`" class="btn-primary">Request Info</a>
       </div>
     </li>
   </menu>
@@ -70,13 +71,13 @@ console.log(state.cars);
 .car-list {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(45rem, 47.5rem));
+  grid-template-columns: repeat(auto-fit, minmax(35rem, 37.5rem));
   gap: 4rem;
 
   padding: 5rem 0 30rem 4rem; //NOTE: for now
 
   &__item {
-    height: 50rem;
+    height: 45rem;
     box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 15%);
 
     &--image {
@@ -95,7 +96,7 @@ console.log(state.cars);
     &--data {
       display: flex;
       align-content: center;
-      justify-content: space-around;
+      justify-content: center;
       margin-top: 1.75rem;
       margin-bottom: 3rem;
 
@@ -110,7 +111,7 @@ console.log(state.cars);
         }
 
         span {
-          font-size: 2rem;
+          font-size: 1.4rem;
         }
       }
       .mileage {
@@ -122,12 +123,21 @@ console.log(state.cars);
         }
       }
       .price {
+        // margin-right: 1.5rem;
+        // position: relative;
         .moneybag-logo {
           // NOTE; repeated code above. put in mixin or extends later
           filter: invert(23%) sepia(80%) saturate(2901%) hue-rotate(355deg) brightness(101%) contrast(81%);
         }
         span {
           // font-size: 2.5rem;
+        }
+
+        &::after {
+          content: "\007C";
+          // position: absolute;
+          margin: 0 1.5rem;
+          color: $colour-primary;
         }
       }
     }
@@ -152,12 +162,12 @@ console.log(state.cars);
     cursor: pointer;
     display: inline-block;
     color: $colour-blanc;
-    font-size: 1.8rem;
+    font-size: 1.25rem;
     text-transform: uppercase;
     text-decoration: none;
     font-weight: 400;
     border-radius: 2.5rem;
-    padding: 1.4rem 2.8rem;
+    padding: 1.25rem 2rem;
     border: none;
     background-color: $colour-primary;
   }
