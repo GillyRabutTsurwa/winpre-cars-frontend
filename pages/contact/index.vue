@@ -7,12 +7,12 @@
         <span><a href="tel:+5407731773">540-773-1773</a></span>
       </li>
       <li class="contact__list--item">
-        <span>Cell (Saber):</span>
+        <span>Cell (Saber El Abani):</span>
         <span><a href="tel:+5405429894">540-542-9894</a></span>
       </li>
       <!-- <li class="contact__list--item"> <span>Cell (Liliya):</span><span>304-657-2180</span></li> -->
       <li class="contact__list--item">
-        <span>Cell (Liliya):</span>
+        <span>Cell (Liliya El Abani):</span>
         <span><a href="tel:+6124506115">304-657-2180</a></span>
       </li>
       <li class="contact__list--item">

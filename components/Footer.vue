@@ -8,30 +8,71 @@
     <article class="links-footer__address">
       <h4 class="links-footer__subtitle">Location</h4>
       <address>
-        <p>Win Pre-Owned Cars Inc.</p>
-        <p>1001 S Kent St</p>
-        <p>Winchester, VA 22601</p>
+        <a href="https://www.google.com/maps/dir//Win+Pre-Owned+Cars+Inc.,+1001+S+Kent+St,+Winchester,+VA+22601/@39.1751368,-78.1681957,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x89b5ff1f8e2a0cc7:0xf33004bb7d1714a7!2m2!1d-78.166007!2d39.1751327!3e0">
+          <p>Win Pre-Owned Cars Inc.</p>
+          <p>1001 S Kent St</p>
+          <p>Winchester, VA 22601</p>
+        </a>
       </address>
     </article>
     <ul class="links-footer__contact">
       <h4 class="links-footer__subtitle">Contact Us</h4>
       <li class="links-footer--item phone">
-        <img src="~/assets/svg/phone.svg" alt="">
-        <span>540-773-1773</span>
+        <a href="tel:+5407731773">
+          <img src="~/assets/svg/phone.svg" alt="">
+          <span>540-773-1773</span>
+        </a>
       </li>
       <li class="links-footer--item email">
-        <img src="~/assets/svg/mail.svg" alt="">
-        <span>winprecars@yahoo.com</span>
+        <a href="mailto:winprecars@yahoo.com">
+          <img src="~/assets/svg/mail.svg" alt="">
+          <span>winprecars@yahoo.com</span>
+        </a>
       </li>
 
     </ul>
     <ul class="links-footer__follow">
-      <h4 class="links-footer__subtitle">Follow Us</h4>
-      <li class="links-footer--item">Home</li>
-      <li class="links-footer--item">Inventory</li>
-      <li class="links-footer--item">About Us</li>
-      <li class="links-footer--item">Testimonials</li>
-      <li class="links-footer--item">Contact</li>
+      <h4 class="links-footer__subtitle">Links</h4>
+      <li class="links-footer--item">
+        <NuxtLink to="/inventory">Inventory</NuxtLink>
+      </li>
+      <li class="links-footer--item">
+        <NuxtLink to="/about">About Us</NuxtLink>
+      </li>
+      <li class="links-footer--item">
+        <NuxtLink to="/contact">Contact</NuxtLink>
+      </li>
+    </ul>
+    <ul class="links-footer__store-hours">
+      <h4 class="links-footer__subtitle">Store Hours</h4>
+      <li class="links-footer--item store-hours">
+        <span class="day">Mon</span>
+        <span class="times">Closed</span>
+      </li>
+      <li class="links-footer--item store-hours">
+        <span class="day">Tue</span>
+        <span class="times">Closed</span>
+      </li>
+      <li class="links-footer--item store-hours">
+        <span class="day">Wed</span>
+        <span class="times">Closed</span>
+      </li>
+      <li class="links-footer--item store-hours">
+        <span class="day">Thu</span>
+        <span class="times">10:00 A.M. - 5 P.M.</span>
+      </li>
+      <li class="links-footer--item store-hours">
+        <span class="day">Fri</span>
+        <span class="times">10:00 A.M. - 5 P.M.</span>
+      </li>
+      <li class="links-footer--item store-hours">
+        <span class="day">Sat</span>
+        <span class="times">10:00 A.M. - 5 P.M.</span>
+      </li>
+      <li class="links-footer--item store-hours">
+        <span class="day">Sun</span>
+        <span class="times">Closed</span>
+      </li>
     </ul>
     <h3 class="copyright">Copyright &copy; Win Pre-Owned Cars Inc. {{currentYear}}. All Rights Reserved</h3>
     <div class="below-footer">
@@ -57,16 +98,18 @@ const currentYear = computed(() => {
   
   <style lang="scss" scoped>
 .footer {
+  position: relative;
   width: 100%;
   // height: 60rem;
-  height: 65vh;
+  height: 65rem;
   // padding: 0 4rem;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  // grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr) 10rem;
+  place-items: center;
+  // align-content: center;
   row-gap: 2.5rem;
-  // background-color: $background-blanc;
 
   .logo {
     // width: 15rem;
@@ -74,7 +117,10 @@ const currentYear = computed(() => {
     height: 20rem;
     grid-column: 2 / 3;
     grid-row: 1 / 2;
-    justify-self: center;
+    justify-self: end; // mais il (le logo) est toujours hors de centre
+    position: relative; //NOTE: voici la solution
+    left: 20%;
+
     background-color: transparent;
 
     img {
@@ -82,14 +128,38 @@ const currentYear = computed(() => {
     }
   }
   .links-footer {
-    display: flex;
-    list-style: none;
+    &__subtitle {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
 
     &__address,
     &__contact,
-    &__follow {
+    &__follow,
+    &__store-hours {
       grid-row: 2 / 3;
-      justify-self: center;
+      text-align: center;
+      // align-self: center;
+
+      a {
+        &,
+        &:link,
+        &:visited {
+          color: unset;
+          text-decoration: none;
+          transition: all 0.2s;
+          display: inline-block; //NOTE: sans celui-ci, la rotation n'est pas possible
+        }
+
+        &:hover,
+        &:active {
+          color: $colour-primary;
+          -webkit-box-shadow: 0 1rem 2rem rgb(0 0 0 / 40%);
+          box-shadow: 0 1rem 2rem rgb(0 0 0 / 40%);
+          -webkit-transform: rotate(5deg);
+          transform: rotate(5deg);
+        }
+      }
     }
 
     &__address {
@@ -112,12 +182,14 @@ const currentYear = computed(() => {
       grid-column: 3 / 4;
     }
 
-    &__subtitle {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+    &__store-hours {
+      grid-column: 4 / 5;
+      list-style: none;
+      // display: grid;
+      // grid-template-columns: repeat(2, max-content);
     }
 
-    &--item {
+    &--item:not(.store-hours) {
       margin-right: 1.5rem;
       color: #fff;
       text-decoration: none;
@@ -142,6 +214,21 @@ const currentYear = computed(() => {
         }
       }
     }
+
+    &--item {
+      &.store-hours {
+        display: flex;
+        margin-bottom: 0.35rem;
+        .day {
+          margin-right: 5rem;
+          width: 2.5rem;
+        }
+        .times {
+          // width: 100%;
+          align-self: flex-start;
+        }
+      }
+    }
   }
 
   .copyright {
@@ -152,7 +239,10 @@ const currentYear = computed(() => {
 }
 
 .below-footer {
+  position: absolute; // parent is .footer
+  bottom: 0;
   grid-column: 1 / -1;
+  grid-row: 4 / 5;
   width: 100%;
   background-color: $colour-noir;
   display: flex;
