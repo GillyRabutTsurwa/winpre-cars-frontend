@@ -70,7 +70,6 @@
   padding: 6rem;
   -webkit-box-shadow: 0 3rem 6rem rgba($colour-noir, 0.1);
   box-shadow: 0 3rem 6rem rgba($colour-noir, 0.1);
-  background-color: rgba($colour-blanc, 0.6);
   border-radius: 3px;
   font-size: 1.6rem;
   -webkit-transform: skew(-12deg);

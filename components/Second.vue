@@ -7,7 +7,8 @@
 
     <div v-for="(currentParagraph, index) in state.paragraphs" :key="index" class="text">
       <span>{{ currentParagraph.description }}</span>
-      <button class="btn-primary">Test</button>
+      <!-- NOTE: this conditional is to show one button in the last element section, even though two are rendered by default due to the code -->
+      <a v-if="index === 1" href="mailto:winprecars@yahoo.com?subject=Scheduling%20a%20Test%20Drive" class="btn-primary btn" :data-index="index">Schedule a Test Drive</a>
     </div>
 
     <div class="photo-ou-video">
@@ -21,19 +22,13 @@ const state = reactive({
   paragraphs: [],
 });
 
-(async () => {
-  try {
-    const query = groq`*[_type == "introText"]`;
-    console.log(await useSanityQuery(query));
+const query = groq`*[_type == "introText"]`;
+console.log(await useSanityQuery(query));
 
-    const { data, error } = await useSanityQuery(query);
-    if (error.value) throw new Error(`Error: ${error.value}`);
-    console.log(data.value); //NOTE: pour une raison les valeurs s'affichent inverser. pour le moment je vais faire ceci
-    state.paragraphs = data.value.reverse(); //NOTE: reversing the array so that the texts come in the order I want, till i find out what's happening
-  } catch (error) {
-    console.log(error);
-  }
-})();
+const { data, error } = await useSanityQuery(query);
+if (error.value) throw new Error(`Error: ${error.value}`);
+console.log(data.value); //NOTE: pour une raison les valeurs s'affichent inverser. pour le moment je vais faire ceci
+state.paragraphs = data.value.reverse(); //NOTE: reversing the array so that the texts come in the order I want, till i find out what's happening
 </script>
 
 <style lang="scss" scoped>
@@ -72,6 +67,10 @@ const state = reactive({
       object-fit: cover;
     }
   }
+}
+
+.btn:last-of-type {
+  margin-top: 5rem;
 }
 
 //NOTE: je vais deplacer ce code, car ce sera global

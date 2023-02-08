@@ -58,7 +58,7 @@ const state = reactive({
  * thus, this NEW solution checks to see if there are any properties inside the route.query object, ie, if it is an empty object or not
  * if it is empty, it will do a general query for all the cars
  */
-const query = Object.keys(route.query).length ? `*[_type == "car" && ${queryProperty} == "${queryValue}"]` : `*[_type == "car"]`;
+const query = Object.keys(route.query).length ? groq`*[_type == "car" && ${queryProperty} == "${queryValue}"]` : groq`*[_type == "car"]`;
 const { data, error } = await useSanityQuery(query);
 if (error.value) throw new Error(`Error Tings: ${error.value}`);
 

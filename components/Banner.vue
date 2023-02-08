@@ -3,10 +3,9 @@
 </template>
 
 <script setup>
-// <figure :style="{backgroundImage: `url(${$urlFor(randomImage)})`}"></figure>
 const currentIndex = ref(0);
 
-const query = `*[_type=="bannerImages"]`;
+const query = groq`*[_type=="bannerImages"]`;
 const { data, error } = await useSanityQuery(query);
 const images = data.value[0].images;
 
@@ -19,7 +18,7 @@ const currentImage = computed(() => {
   return images[currentIndex.value];
 });
 
-//
+console.log(currentImage);
 
 const startImageSlideShow = () => {
   setInterval(nextImage, 5000);
@@ -40,7 +39,6 @@ figure {
   background-repeat: no-repeat;
   background-position-y: -15rem;
   background-attachment: fixed;
-  opacity: 1;
 
   // animation-name: fade;
   // animation-timing-function: ease-in;
@@ -48,13 +46,15 @@ figure {
   // animation-duration: 7s;
   // // animation-delay: 4s;
   // animation-direction: alternate;
-  -webkit-transition: background-image 1.5s linear;
-  -moz-transition: background-image 1.5s linear;
-  -o-transition: background-image 1.5s linear;
-  -ms-transition: background-image 1.5s linear;
+
+  // -webkit-transition: background-image 1.5s linear;
+  // -moz-transition: background-image 1.5s linear;
+  // -o-transition: background-image 1.5s linear;
+  // -ms-transition: background-image 1.5s linear;
   transition: background-image 1.5s linear;
 }
 
+// NOTE: not working
 @-webkit-keyframes fade {
   0% {
     opacity: 0;

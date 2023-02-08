@@ -68,7 +68,7 @@ let imgTest;
 
 //NOTE: getting problems with the async iife on this page
 try {
-  const query = `*[_type=="car" && slug.current == "${url}"]`;
+  const query = groq`*[_type=="car" && slug.current == "${url}"]`;
   const { data, error } = await useSanityQuery(query);
 
   if (error.value) throw new Error(`Error Tings: ${error.value}`);
