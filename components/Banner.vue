@@ -34,55 +34,15 @@ onMounted(() => {
 figure {
   width: 100%;
   height: calc(100vh - 15rem);
-  // background-image: url(../assets/img/banner-8.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position-y: -15rem;
   background-attachment: fixed;
 
-  // animation-name: fade;
-  // animation-timing-function: ease-in;
-  // animation-iteration-count: infinite;
-  // animation-duration: 7s;
-  // // animation-delay: 4s;
-  // animation-direction: alternate;
-
-  // -webkit-transition: background-image 1.5s linear;
-  // -moz-transition: background-image 1.5s linear;
-  // -o-transition: background-image 1.5s linear;
-  // -ms-transition: background-image 1.5s linear;
+  -webkit-transition: background-image 1.5s linear;
+  -moz-transition: background-image 1.5s linear;
+  -o-transition: background-image 1.5s linear;
+  -ms-transition: background-image 1.5s linear;
   transition: background-image 1.5s linear;
-}
-
-// NOTE: not working
-@-webkit-keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  45% {
-    opacity: 0;
-  }
-  55% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* Standard syntax */
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  45% {
-    opacity: 0;
-  }
-  55% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 </style>
