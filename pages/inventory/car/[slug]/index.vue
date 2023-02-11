@@ -2,45 +2,48 @@
   <div class="car">
     <div class="image-container">
       <div class="main-image">
-        <SanityImage :asset-id="imgTest[2]" auto="format" />
+        <SanityImage :asset-id="imgTest[mainImageIndex]" auto="format" />
       </div>
       <div class="images">
-        <SanityImage :asset-id="imgTest[1]" auto="format" />
-        <SanityImage :asset-id="imgTest[0]" auto="format" />
+        <SanityImage v-for="(currentImg, index) in imgTest" :key="index" @click="fetchIndex(index)" :asset-id="currentImg" auto="format" />
       </div>
     </div>
-    <div class="car-logo">
-      <img src="~/assets/svg/mitsubishi.svg" alt="" srcset="">
-    </div>
     <div class="car-info">
-      <h2>About Car</h2>
-      <div class="car-info-table">
-        <div class="list-first">
-          <ul>
-            <li>Name: {{ state.car.brand }} {{ state.car.model }}</li>
-            <li>Year: {{ state.car.year }}</li>
-            <li>Price: {{ state.car.price }}</li>
-          </ul>
-        </div>
-        <div class="list-second">
-          <ul>
-            <li>VIN: {{ state.car.vin }}</li>
-            <li>Mileage: {{ state.car.mileage }} </li>
-            <li>MPG: {{ state.car.mpg }}</li>
-            <li>Engine: {{ state.car.defaultCarData.engine }}</li>
-            <li>Drivetrain: {{ state.car.defaultCarData.drivetrain }}</li>
-            <li>Exterior Colour: {{ state.car.defaultCarData.exteriorColor }}</li>
-            <li>Interior Colour: {{ state.car.defaultCarData.interiorColor }}</li>
-          </ul>
-        </div>
+      <h2 class="car-info__title">{{state.car.year}} {{state.car.brand}} {{state.car.model}}</h2>
+      <div class="car-info__table">
+        <ul class="car-info__table--titles">
+          <li>Brand</li>
+          <li>Model</li>
+          <li>Year</li>
+          <li>Price</li>
+          <li>VIN</li>
+          <li>Mileage</li>
+          <li>MPG</li>
+          <li>Engine</li>
+          <li>Drivetrain</li>
+          <li>Interior Colour</li>
+          <li>Exterior Colour</li>
+        </ul>
+        <ul class="car-info__table--values">
+          <li>{{ state.car.brand }}</li>
+          <li>{{ state.car.model }}</li>
+          <li>{{ state.car.year }}</li>
+          <li>${{ format(state.car.price) }}</li>
+          <li>{{ state.car.vin }}</li>
+          <li>{{ format(state.car.defaultCarData.mileage) }}</li>
+          <li>{{ state.car.defaultCarData.mpg || 7000 }}</li>
+          <li>{{ state.car.defaultCarData.engine || 7000 }}</li>
+          <li>{{ state.car.defaultCarData.drivetrain || 7000 }}</li>
+          <li>{{ state.car.defaultCarData.exteriorColor }}</li>
+          <li>{{ state.car.defaultCarData.interiorColor }}</li>
+        </ul>
       </div>
 
     </div>
     <div class="car-interested">
       <h2 class="car-interested__title">Interested in the car?</h2>
-      <p class="car-interested__text">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae sint rem earum, cum reprehenderit sequi ea perferendis exercitationem voluptate vel incidunt sunt odio dolorem nostrum doloribus blanditiis facere aliquid ipsa quas reiciendis error! Perferendis quia ipsum, fuga harum, in ratione, sint expedita consectetur minima ex aut illum obcaecati delectus. Id repudiandae fugit recusandae perspiciatis commodi veritatis, laboriosam beatae fuga. Quidem voluptates modi temporibus illo quae consectetur ipsa nesciunt minus et ad eaque deleniti quas recusandae, rerum commodi illum placeat expedita iste! Laudantium corrupti soluta reiciendis saepe, beatae quis maxime rem tempore culpa odio magnam a, voluptatibus pariatur doloremque hic nihil aliquid! A magni, eaque debitis, vero velit officiis illum explicabo, mollitia corporis tempore saepe labore iure aliquid nemo distinctio fugiat!
-      </p>
+      <a :href="`mailto:winprecars@yahoo.com?subject=Requesting%20Info%20on%20${state.car.year} ${state.car.brand} ${state.car.model}`" class="btn-primary car-interested__button">Request Info</a>
+      <a href="https://www.westlakefinancial.com/" target="_blank" class="btn-primary car-interested__button">Financing</a>
     </div>
   </div>
 </template>
@@ -51,6 +54,11 @@ const url = route.params.slug;
 console.log(url);
 console.log(typeof url);
 
+// NEW: our first nuxt composable
+const { format } = useFormatNum();
+console.log(useFormatNum());
+
+console.log(format);
 const state = reactive({
   car: {},
 });
@@ -81,55 +89,141 @@ try {
 } catch (error) {
   console.log(error);
 }
+
+const mainImageIndex = ref(0);
+// NEW: fetch index from image gallery to change main image
+const fetchIndex = (imageIndex) => {
+  console.log(imageIndex);
+  if (!imageIndex) imageIndex = 0;
+  mainImageIndex.value = imageIndex;
+};
+
+//NOTE: and use this index as a computed property to be used in the template
+// const imageIndex = computed(() => {
+//   return fetchIndex();
+// });
+
+watchEffect(() => {
+  // console.log(imageIndex.value);
+});
 </script>
 
 <style lang="scss" scoped>
 .car {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  row-gap: 5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5rem 3rem;
+  // row-gap: 5rem;
   padding: 8rem 3rem;
   justify-items: center;
-}
 
-.car-logo {
-  width: 40rem;
-  height: 40rem;
-
-  img {
+  &-info {
+    grid-column: 3 / -1;
     width: 100%;
-    height: 100%;
+
+    &__title {
+      font-size: $colour-primary;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    &__table {
+      display: flex;
+      // flex-direction: column;
+      width: 100%;
+
+      &--titles,
+      &--values {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        width: inherit;
+        font-size: 1.8rem;
+        color: $colour-primary;
+
+        li {
+          border-bottom: 0.5px solid $colour-primary;
+          padding: 2rem 0;
+          text-align: center;
+
+          &:hover {
+            background-color: $colour-primary;
+            color: $colour-blanc;
+          }
+        }
+      }
+      &--titles {
+        // text-transform: uppercase;
+        // justify-self: center;
+        li {
+          // text-align: center;
+        }
+      }
+      &--values {
+      }
+    }
+  }
+  &-interested {
+    grid-column: 4 / -1;
+
+    &__title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    &__button {
+      margin-right: 1.5rem;
+    }
   }
 }
+
 .image-container {
-  max-width: 76rem;
+  // max-width: 76rem;
   // border: 2px solid $colour-primary;
+  grid-column: 1 / 3;
   background-color: #fff;
+  width: 100%;
   // grid-row: 1 / span 2; NOTE; pourrait être utile plus tard
 }
 
 .images {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-gap: 0.5rem;
-}
 
-.main-image img,
-.images img {
-  width: 100%;
-}
-
-.car-interested {
-  grid-column: 2 / 3;
-
-  &__title {
-    text-align: center;
-    margin-bottom: 2rem;
+  img {
+    width: 100%;
+    cursor: pointer;
   }
+}
 
-  &__text {
-    line-height: 1.5;
-    font-size: 2rem;
+.main-image {
+  height: 50rem;
+  margin-bottom: 3rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// using this partout. je vais le gerer plus tard
+.btn-primary {
+  &,
+  &:link,
+  &:visited {
+    cursor: pointer;
+    display: inline-block;
+    color: #fff;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 400;
+    border-radius: 2.5rem;
+    padding: 1.4rem 2.8rem;
+    border: none;
+    background-color: $colour-primary;
   }
 }
 </style>
