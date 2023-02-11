@@ -15,6 +15,9 @@
       <li class="links-main--item">
         <NuxtLink to="/contact">Contact</NuxtLink>
       </li>
+      <li class="links-main--item">
+        <NuxtLink to="/">Home</NuxtLink>
+      </li>
       <!-- <DevOnly>
         <li @click="toggleMode" class="links-main--item mode">{{mode}} Mode</li>
       </DevOnly> -->

@@ -79,6 +79,8 @@ console.log(state.cars);
   &__item {
     height: 45rem;
     box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 15%);
+    display: grid;
+    grid-template-rows: 21rem 1fr;
 
     &--image {
       img {
@@ -150,7 +152,7 @@ console.log(state.cars);
     &--links {
       display: flex;
       justify-content: space-around;
-      margin-top: 3rem;
+      margin: 3rem 0;
     }
   }
 }
