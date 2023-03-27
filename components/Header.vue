@@ -33,6 +33,7 @@ const isDark = ref(false);
 const mode = computed(() => {
   return isDark.value ? "Dark" : "Light";
 });
+
 console.log(mode.value);
 
 const currentMode = computed(() => {
@@ -64,6 +65,10 @@ const toggleMode = () => {
   // background-image: linear-gradient(to right, gold, $colour-primary); //NOTE: save this to show Saber's mum
   background-image: linear-gradient(to right, $background-blanc, $colour-primary); //NOTE: save this to show Saber's mum
 
+  // transform: translate3d(0, 0, 0);
+  // transform-style: preserver-3d;
+  // backface-visibility: hidden;
+
   .logo {
     width: 11.5rem;
     margin: 0;
@@ -75,6 +80,7 @@ const toggleMode = () => {
       padding: 2rem 0;
     }
   }
+
   .links-main {
     display: flex;
     list-style: none;
@@ -84,6 +90,7 @@ const toggleMode = () => {
       font-size: 2rem;
 
       a {
+
         &,
         &:link,
         &:visited {

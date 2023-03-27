@@ -1,177 +1,218 @@
 <template>
-  <menu class="car-list">
-    <li v-for="currentCar in state.cars" :key="currentCar._id" class="car-list__item">
-      <div class="car-list__item--image">
-        <SanityImage :asset-id="currentCar.defaultCarData.images[0].asset._ref" />
+  <div v-if="pending">HOld on to deez nuts</div>
+  <div v-else class="car">
+    <div class="image-container">
+      <div class="main-image">
+        <SanityImage :asset-id="imgTest[mainImageIndex]" auto="format" />
       </div>
-      <h2 class="title">{{ `${currentCar.year} ${currentCar.brand} ${currentCar.model}` }}</h2>
-      <div class="car-list__item--data">
-        <p class="price">
-          <img src="~/assets/svg/money-bag.svg" alt="" class="moneybag-logo">
-          <span> &dollar;{{ currentCar.price }}</span>
-        </p>
-        <p class="mileage">
-          <img src="~/assets/svg/speedometre.svg" alt="" class="speedometre-logo">
-          <span>{{ currentCar.defaultCarData.mileage }} miles</span>
-        </p>
+      <div class="images">
+        <SanityImage v-for="(currentImg, index) in imgTest" :key="index" @click="fetchIndex(index)" :asset-id="currentImg"
+          auto="format" />
       </div>
-      <hr>
-      <div class="car-list__item--links">
-        <NuxtLink :to="`/inventory/car/${currentCar.slug.current}`" class="btn-primary">More Info</NuxtLink>
-        <!-- NEWNOTE: using the mailto links truc i just learnt to redirect user to an email with a dynamic subject based on car clicked. very neat -->
-        <a :href="`mailto:winprecars@yahoo.com?subject=Requesting%20Info%20on%20${currentCar.year} ${currentCar.brand} ${currentCar.model}`" class="btn-primary">Request Info</a>
+    </div>
+    <div class="car-info">
+      <h2 class="car-info__title">{{ state.car.year }} {{ state.car.brand }} {{ state.car.model }}</h2>
+      <div class="car-info__table">
+        <ul class="car-info__table--titles">
+          <li>Brand</li>
+          <li>Model</li>
+          <li>Year</li>
+          <li>Price</li>
+          <li>VIN</li>
+          <li>Mileage</li>
+          <li>MPG</li>
+          <li>Engine</li>
+          <li>Drivetrain</li>
+          <li>Interior Colour</li>
+          <li>Exterior Colour</li>
+        </ul>
+        <ul class="car-info__table--values">
+          <li>{{ state.car.brand }}</li>
+          <li>{{ state.car.model }}</li>
+          <li>{{ state.car.year }}</li>
+          <li>${{ format(state.car.price) }}</li>
+          <li>{{ state.car.vin }}</li>
+          <li>{{ format(state.car.defaultCarData.mileage) }}</li>
+          <li>{{ state.car.defaultCarData.mpg || 7000 }}</li>
+          <li>{{ state.car.defaultCarData.engine || 7000 }}</li>
+          <li>{{ state.car.defaultCarData.drivetrain || 7000 }}</li>
+          <li>{{ state.car.defaultCarData.exteriorColor }}</li>
+          <li>{{ state.car.defaultCarData.interiorColor }}</li>
+        </ul>
       </div>
-    </li>
-  </menu>
+
+    </div>
+    <div class="car-interested">
+      <h2 class="car-interested__title">Interested in the car?</h2>
+      <a :href="`mailto:winprecars@yahoo.com?subject=Requesting%20Info%20on%20${state.car.year} ${state.car.brand} ${state.car.model}`"
+        class="btn-primary car-interested__button">Request Info</a>
+      <a href="https://www.westlakefinancial.com/" target="_blank"
+        class="btn-primary car-interested__button">Financing</a>
+    </div>
+  </div>
 </template>
 
 <script setup>
 const route = useRoute();
-console.log(route);
-console.log(route.query);
+const url = route.params.slug;
+console.log(url);
+console.log(typeof url);
 
-//capitalise helper function. eventually put in own composable
-const capitalise = (str) => `${str.charAt(0).toUpperCase()}${str.substring(1)}`;
+// NEW: our first nuxt composable
+const { format } = useFormatNum();
+console.log(useFormatNum());
 
-let queryProperty;
-let queryValue;
+console.log(format);
+const state = reactive({
+  car: {},
+  pending: null,
+});
 
-for (const key in route.query) {
-  if (Object.hasOwnProperty.call(route.query, key)) {
-    const element = route.query[key];
-    console.log(key, element);
-    queryProperty = key;
-    queryValue = queryProperty === "brand" ? capitalise(element) : element;
-  }
+let imgTest;
+
+const query = groq`*[_type=="car" && slug.current == "${url}"]`;
+const { data, error, pending } = await useLazySanityQuery(query);
+console.log(pending);
+
+console.log(useSanityQuery(query));
+
+try {
+  if (error.value) throw new Error(`Error Tings: ${error.value}`);
+
+  console.log(data);
+  console.log(data.value);
+  state.car = data.value[0];
+  imgTest = state.car.defaultCarData.images.map((currentImg) => currentImg.asset._ref);
+
+  state.pending = pending.value;
+  console.log(imgTest);
+} catch (error) {
+  console.log(error);
 }
 
-console.log(queryProperty, queryValue);
-
-const state = reactive({
-  cars: [],
-});
-/**
- * NOTEIMPORTANT:
- * upon looking at the code that handles the queries, the general query (for all cars) was not working
- * this is because I was looking to see if the route.query object existed...
- * ... but was not checking if there were any properties inside of it
- * thus, this NEW solution checks to see if there are any properties inside the route.query object, ie, if it is an empty object or not
- * if it is empty, it will do a general query for all the cars
- */
-const query = Object.keys(route.query).length ? groq`*[_type == "car" && ${queryProperty} == "${queryValue}"]` : groq`*[_type == "car"]`;
-const { data, error } = await useSanityQuery(query);
-if (error.value) throw new Error(`Error Tings: ${error.value}`);
-
-console.log(data);
-state.cars = data.value;
-console.log(state.cars);
+const mainImageIndex = ref(0);
+const fetchIndex = (imageIndex) => {
+  console.log(imageIndex);
+  if (!imageIndex) imageIndex = 0;
+  mainImageIndex.value = imageIndex;
+};
 </script>
 
-<style lang="scss" scoped >
-.car-list {
-  list-style: none;
+<style lang="scss" scoped>
+.car {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(35rem, 37.5rem));
-  gap: 4rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5rem 3rem;
+  padding: 8rem 3rem;
+  justify-items: center;
 
-  padding: 5rem 0 30rem 4rem; //NOTE: for now
+  &-info {
+    grid-column: 3 / -1;
+    width: 100%;
 
-  &__item {
-    height: 45rem;
-    box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 15%);
-    display: grid;
-    grid-template-rows: 21rem 1fr;
-
-    &--image {
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-
-    .title {
+    &__title {
+      font-size: $colour-primary;
+      text-transform: uppercase;
       text-align: center;
-      margin-top: 1.5rem;
     }
 
-    &--data {
+    &__table {
       display: flex;
-      align-content: center;
-      justify-content: center;
-      margin-top: 1.75rem;
-      margin-bottom: 3rem;
+      width: 100%;
 
-      .mileage,
-      .price {
+      &--titles,
+      &--values {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        list-style: none;
+        width: inherit;
+        font-size: 1.8rem;
+        color: $colour-primary;
 
-        img {
-          margin-right: 1rem;
-          height: 2.25rem;
-        }
+        li {
+          border-bottom: 0.5px solid $colour-primary;
+          padding: 2rem 0;
+          text-align: center;
 
-        span {
-          font-size: 1.4rem;
+          &:hover {
+            background-color: $colour-primary;
+            color: $colour-blanc;
+          }
         }
       }
-      .mileage {
-        .speedometre-logo {
-          filter: invert(23%) sepia(80%) saturate(2901%) hue-rotate(355deg) brightness(101%) contrast(81%);
-        }
-        span {
-          // font-size: 2.5rem;
-        }
-      }
-      .price {
-        // margin-right: 1.5rem;
-        // position: relative;
-        .moneybag-logo {
-          // NOTE; repeated code above. put in mixin or extends later
-          filter: invert(23%) sepia(80%) saturate(2901%) hue-rotate(355deg) brightness(101%) contrast(81%);
-        }
-        span {
-          // font-size: 2.5rem;
-        }
 
-        &::after {
-          content: "\007C";
-          // position: absolute;
-          margin: 0 1.5rem;
-          color: $colour-primary;
+      &--titles {
+
+        // text-transform: uppercase;
+        // justify-self: center;
+        li {
+          // text-align: center;
         }
       }
+
+      &--values {}
+    }
+  }
+
+  &-interested {
+    grid-column: 4 / -1;
+
+    &__title {
+      text-align: center;
+      margin-bottom: 2rem;
     }
 
-    hr {
-      background-color: $colour-primary;
-      border-color: $colour-primary;
-    }
-
-    &--links {
-      display: flex;
-      justify-content: space-around;
-      margin: 3rem 0;
+    &__button {
+      margin-right: 1.5rem;
     }
   }
 }
-//TODO; make mixin or extends this code is being used multiple places
+
+.image-container {
+  grid-column: 1 / 3;
+  background-color: #fff;
+  width: 100%;
+  // grid-row: 1 / span 2; NOTE; pourrait être utile plus tard
+}
+
+.images {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 0.5rem;
+
+  img {
+    width: 100%;
+    cursor: pointer;
+  }
+}
+
+.main-image {
+  height: 50rem;
+  margin-bottom: 3rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// using this partout. je vais le gerer plus tard
 .btn-primary {
+
   &,
   &:link,
   &:visited {
     cursor: pointer;
     display: inline-block;
-    color: $colour-blanc;
-    font-size: 1.25rem;
+    color: #fff;
+    font-size: 1.8rem;
     text-transform: uppercase;
     text-decoration: none;
     font-weight: 400;
     border-radius: 2.5rem;
-    padding: 1.25rem 2rem;
+    padding: 1.4rem 2.8rem;
     border: none;
     background-color: $colour-primary;
   }
-}
-</style>
+}</style>

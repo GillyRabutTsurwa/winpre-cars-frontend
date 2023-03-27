@@ -1,12 +1,14 @@
 <template>
-  <div class="container">
-    <Header />
+  <div class="container" ref="container">
+    <Header ref="header" />
     <slot />
     <Footer />
   </div>
 </template>
 
 <script setup>
+const container = ref(null);
+const header = ref(null);
 //NOTE: no longer active (for the moment)
 const currentMode = ref("Light");
 
@@ -22,7 +24,46 @@ const headerFooterClasses = computed(() => {
     light: currentMode.value === "Light",
   };
 });
-// ======================================
+
+// ================Intersection Observer======================
+const createObserver = (observedElement) => {
+  // NOTE: observer options
+  const options = {
+    root: null,
+    threshold: 1,
+    rootMargin: "0px",
+  };
+  // NOTE: observer setup
+  const observer = new IntersectionObserver(function (entries, observer) {
+    entries.forEach((currentEntry) => {
+      if (currentEntry.intersectionRatio < 0.25) {
+        console.log("trigger sticky now");
+      } else {
+        console.log("undo sticky");
+      }
+    });
+  }, options);
+  observer.observe(observedElement);
+};
+onMounted(() => {
+  console.log(container.value);
+  console.log(header.value.$el); //NOTEIMPORTANT: how to access the DOM of a child component within a parent component
+  console.dir(header.value.$el.style);
+
+  createObserver(container.value);
+
+  // TESTING: aha i see. so this code works well. puis-je faie le meme avec vue la dessous?
+  // document.addEventListener("scroll", () => {
+  //   console.log(container.value.getBoundingClientRect().top);
+  //   if (container.value.getBoundingClientRect().top < -120) {
+  //     header.value.$el.style.position = "sticky";
+  //     header.value.$el.style.top = 0;
+  //     header.value.$el.style.zIndex = 9999;
+  //   } else {
+  //     header.value.$el.style.position = "";
+  //   }
+  // });
+});
 </script>
 
 <style lang="scss" scoped>
