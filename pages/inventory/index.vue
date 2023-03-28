@@ -99,6 +99,8 @@ const fetchIndex = (imageIndex) => {
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .car {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -111,7 +113,7 @@ const fetchIndex = (imageIndex) => {
     width: 100%;
 
     &__title {
-      font-size: $colour-primary;
+      font-size: abstracts.$colour-primary;
       text-transform: uppercase;
       text-align: center;
     }
@@ -127,16 +129,16 @@ const fetchIndex = (imageIndex) => {
         list-style: none;
         width: inherit;
         font-size: 1.8rem;
-        color: $colour-primary;
+        color: abstracts.$colour-primary;
 
         li {
-          border-bottom: 0.5px solid $colour-primary;
+          border-bottom: 0.5px solid abstracts.$colour-primary;
           padding: 2rem 0;
           text-align: center;
 
           &:hover {
-            background-color: $colour-primary;
-            color: $colour-blanc;
+            background-color: abstracts.$colour-primary;
+            color: abstracts.$colour-blanc;
           }
         }
       }
@@ -213,6 +215,7 @@ const fetchIndex = (imageIndex) => {
     border-radius: 2.5rem;
     padding: 1.4rem 2.8rem;
     border: none;
-    background-color: $colour-primary;
+    background-color: abstracts.$colour-primary;
   }
-}</style>
+}
+</style>

@@ -25,6 +25,8 @@ const tabs = {
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .shop {
   height: 95vh;
   display: grid;
@@ -41,7 +43,7 @@ const tabs = {
     text-transform: uppercase;
 
     &--category {
-      color: $colour-primary;
+      color: abstracts.$colour-primary;
     }
   }
 
@@ -54,7 +56,7 @@ const tabs = {
     display: flex;
     align-items: flex-start;
 
-    & > * {
+    &>* {
       margin-right: 3rem;
     }
   }
@@ -62,12 +64,13 @@ const tabs = {
 
 //NOTE: je vais deplacer ce code, car ce sera global. code aussi trouver chez Second.vue
 .btn-primary {
+
   &,
   &:link,
   &:visited {
     cursor: pointer;
     display: inline-block;
-    color: $colour-blanc;
+    color: abstracts.$colour-blanc;
     font-size: 1.8rem;
     text-transform: uppercase;
     text-decoration: none;
@@ -75,7 +78,7 @@ const tabs = {
     border-radius: 2.5rem;
     padding: 1.4rem 2.8rem;
     border: none;
-    background-color: $colour-primary;
+    background-color: abstracts.$colour-primary;
   }
 }
 </style>

@@ -8,7 +8,8 @@
     <div v-for="(currentParagraph, index) in state.paragraphs" :key="index" class="text">
       <span>{{ currentParagraph.description }}</span>
       <!-- NOTE: this conditional is to show one button in the last element section, even though two are rendered by default due to the code -->
-      <a v-if="index === 1" href="mailto:winprecars@yahoo.com?subject=Scheduling%20a%20Test%20Drive" class="btn-primary btn" :data-index="index">Schedule a Test Drive</a>
+      <a v-if="index === 1" href="mailto:winprecars@yahoo.com?subject=Scheduling%20a%20Test%20Drive"
+        class="btn-primary btn" :data-index="index">Schedule a Test Drive</a>
     </div>
 
     <div class="photo-ou-video">
@@ -32,6 +33,8 @@ state.paragraphs = data.value.reverse(); //NOTE: reversing the array so that the
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .about {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -45,7 +48,7 @@ state.paragraphs = data.value.reverse(); //NOTE: reversing the array so that the
     margin: 4rem 0;
 
     &--coloured {
-      color: $colour-primary;
+      color: abstracts.$colour-primary;
     }
   }
 
@@ -75,6 +78,7 @@ state.paragraphs = data.value.reverse(); //NOTE: reversing the array so that the
 
 //NOTE: je vais deplacer ce code, car ce sera global
 .btn-primary {
+
   &,
   &:link,
   &:visited {
@@ -88,7 +92,6 @@ state.paragraphs = data.value.reverse(); //NOTE: reversing the array so that the
     border-radius: 2.5rem;
     padding: 1.4rem 2.8rem;
     border: none;
-    background-color: $colour-primary;
+    background-color: abstracts.$colour-primary;
   }
-}
-</style>
+}</style>

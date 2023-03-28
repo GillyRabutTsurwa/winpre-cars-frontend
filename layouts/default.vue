@@ -67,18 +67,20 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .container {
   position: relative;
 }
 
 // NOTE: no longer active (for the moment)
 .dark {
-  background-color: $background-sombre;
-  color: $background-blanc;
+  background-color: abstracts.$background-sombre;
+  color: abstracts.$background-blanc;
 }
 
 .light {
-  background-color: $background-blanc;
-  color: $background-sombre;
+  background-color: abstracts.$background-blanc;
+  color: abstracts.$background-sombre;
 }
 </style>

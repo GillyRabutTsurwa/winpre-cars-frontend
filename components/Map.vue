@@ -45,7 +45,7 @@ onMounted(() => {
 });
 </script>
     
-    <style lang="scss">
+<style lang="scss">
 #mapContainer {
   /* width: 100%;
   height: 50vh; */
@@ -59,6 +59,7 @@ onMounted(() => {
 .leaflet-popup-tip-container {
   display: none; //NOTE; don't like how it looks on here et j'en ai pas besoin dans ce cas-ci
 }
+
 .orange {
   background-color: #ddd;
   font-size: 1rem;

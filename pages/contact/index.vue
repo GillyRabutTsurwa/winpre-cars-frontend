@@ -28,6 +28,8 @@
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .contact {
   padding: 5rem 0;
   display: flex;
@@ -37,7 +39,7 @@
 
   &__title {
     margin-bottom: 1.5rem;
-    color: $colour-primary;
+    color: abstracts.$colour-primary;
     text-transform: uppercase;
   }
 
@@ -60,23 +62,24 @@
         }
 
         &:nth-child(2) {
-          color: $colour-primary;
+          color: abstracts.$colour-primary;
         }
       }
 
       a {
+
         &,
         &:link,
         &:visited {
           color: currentColor;
           text-decoration: none;
         }
+
         &:hover,
         &:active {
-          color: rgba($colour-primary, 0.8);
+          color: rgba(abstracts.$colour-primary, 0.8);
         }
       }
     }
   }
-}
-</style>
+}</style>

@@ -1,0 +1,8 @@
+@mixin breakpoint($breakpointUnit, $min-max: max-width) {
+    $baseFont: 16;
+    $em: calc($breakpointUnit / $baseFont);
+
+    @media only screen and (#{$min-max}: #{$em}em) {
+        @content;
+    }
+}

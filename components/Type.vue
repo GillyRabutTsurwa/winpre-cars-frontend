@@ -1,7 +1,7 @@
 <template>
   <ul class="type-container">
     <li v-for="(currentType, index) in typeLogos" :key="index" class="type">
-      <NuxtLink :to="{path: 'inventory', query: {type: currentType}}" aria-disabled="true">
+      <NuxtLink :to="{ path: 'inventory', query: { type: currentType } }" aria-disabled="true">
         <img :src="types[currentType]">
         <h4>{{ typeNameText[index] }}</h4>
       </NuxtLink>
@@ -22,6 +22,8 @@ const typeNameText = ["Sedan", "SUV", "Hatchback", "Sports Car", "Pick-up Truck"
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .type-container {
   list-style: none;
 
@@ -50,14 +52,14 @@ const typeNameText = ["Sedan", "SUV", "Hatchback", "Sports Car", "Pick-up Truck"
       &:link,
       &:visited {
         text-decoration: none;
-        color: $colour-primary;
+        color: abstracts.$colour-primary;
       }
 
       &:hover,
       &:active {
         font-weight: bolder;
-        background-color: $colour-primary;
-        color: $colour-blanc;
+        background-color: abstracts.$colour-primary;
+        color: abstracts.$colour-blanc;
 
         img {
           filter: invert(100%) sepia(9%) saturate(0%) hue-rotate(80deg) brightness(107%) contrast(107%);

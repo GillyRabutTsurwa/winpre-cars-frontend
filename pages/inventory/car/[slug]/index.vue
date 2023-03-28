@@ -5,11 +5,12 @@
         <SanityImage :asset-id="imgTest[mainImageIndex]" auto="format" />
       </div>
       <div class="images">
-        <SanityImage v-for="(currentImg, index) in imgTest" :key="index" @click="fetchIndex(index)" :asset-id="currentImg" auto="format" />
+        <SanityImage v-for="(currentImg, index) in imgTest" :key="index" @click="fetchIndex(index)" :asset-id="currentImg"
+          auto="format" />
       </div>
     </div>
     <div class="car-info">
-      <h2 class="car-info__title">{{state.car.year}} {{state.car.brand}} {{state.car.model}}</h2>
+      <h2 class="car-info__title">{{ state.car.year }} {{ state.car.brand }} {{ state.car.model }}</h2>
       <div class="car-info__table">
         <ul class="car-info__table--titles">
           <li>Brand</li>
@@ -42,8 +43,10 @@
     </div>
     <div class="car-interested">
       <h2 class="car-interested__title">Interested in the car?</h2>
-      <a :href="`mailto:winprecars@yahoo.com?subject=Requesting%20Info%20on%20${state.car.year} ${state.car.brand} ${state.car.model}`" class="btn-primary car-interested__button">Request Info</a>
-      <a href="https://www.westlakefinancial.com/" target="_blank" class="btn-primary car-interested__button">Financing</a>
+      <a :href="`mailto:winprecars@yahoo.com?subject=Requesting%20Info%20on%20${state.car.year} ${state.car.brand} ${state.car.model}`"
+        class="btn-primary car-interested__button">Request Info</a>
+      <a href="https://www.westlakefinancial.com/" target="_blank"
+        class="btn-primary car-interested__button">Financing</a>
     </div>
   </div>
 </template>
@@ -109,6 +112,8 @@ watchEffect(() => {
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .car {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -122,7 +127,7 @@ watchEffect(() => {
     width: 100%;
 
     &__title {
-      font-size: $colour-primary;
+      font-size: abstracts.$colour-primary;
       text-transform: uppercase;
       text-align: center;
     }
@@ -139,30 +144,33 @@ watchEffect(() => {
         list-style: none;
         width: inherit;
         font-size: 1.8rem;
-        color: $colour-primary;
+        color: abstracts.$colour-primary;
 
         li {
-          border-bottom: 0.5px solid $colour-primary;
+          border-bottom: 0.5px solid abstracts.$colour-primary;
           padding: 2rem 0;
           text-align: center;
 
           &:hover {
-            background-color: $colour-primary;
-            color: $colour-blanc;
+            background-color: abstracts.$colour-primary;
+            color: abstracts.$colour-blanc;
           }
         }
       }
+
       &--titles {
+
         // text-transform: uppercase;
         // justify-self: center;
         li {
           // text-align: center;
         }
       }
-      &--values {
-      }
+
+      &--values {}
     }
   }
+
   &-interested {
     grid-column: 4 / -1;
 
@@ -210,6 +218,7 @@ watchEffect(() => {
 
 // using this partout. je vais le gerer plus tard
 .btn-primary {
+
   &,
   &:link,
   &:visited {
@@ -223,7 +232,6 @@ watchEffect(() => {
     border-radius: 2.5rem;
     padding: 1.4rem 2.8rem;
     border: none;
-    background-color: $colour-primary;
+    background-color: abstracts.$colour-primary;
   }
-}
-</style>
+}</style>

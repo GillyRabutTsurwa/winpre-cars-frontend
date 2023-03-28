@@ -42,6 +42,8 @@
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .about {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -50,16 +52,17 @@
     text-align: center;
     margin-top: 2rem;
     font-size: 2.5rem;
-    color: $colour-primary;
+    color: abstracts.$colour-primary;
     text-transform: uppercase;
   }
 
   &__point-to-map {
     text-align: right;
     margin-right: 3rem;
-    color: $colour-primary;
+    color: abstracts.$colour-primary;
   }
 }
+
 .story {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -68,14 +71,14 @@
   width: 90rem;
   margin: 4.5rem;
   padding: 6rem;
-  -webkit-box-shadow: 0 3rem 6rem rgba($colour-noir, 0.1);
-  box-shadow: 0 3rem 6rem rgba($colour-noir, 0.1);
+  -webkit-box-shadow: 0 3rem 6rem rgba(abstracts.$colour-noir, 0.1);
+  box-shadow: 0 3rem 6rem rgba(abstracts.$colour-noir, 0.1);
   border-radius: 3px;
   font-size: 1.6rem;
   -webkit-transform: skew(-12deg);
   transform: skew(-12deg);
 
-  & > * {
+  &>* {
     -webkit-transform: skew(12deg);
     transform: skew(12deg);
   }
@@ -122,7 +125,7 @@
     left: 50%;
     -webkit-transform: translate(-50%, 20%);
     transform: translate(-50%, 20%);
-    color: $colour-blanc;
+    color: abstracts.$colour-blanc;
     text-transform: uppercase;
     font-size: 1.7rem;
     text-align: center;

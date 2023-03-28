@@ -8,7 +8,8 @@
     <article class="links-footer__address">
       <h4 class="links-footer__subtitle">Location</h4>
       <address>
-        <a href="https://www.google.com/maps/dir//Win+Pre-Owned+Cars+Inc.,+1001+S+Kent+St,+Winchester,+VA+22601/@39.1751368,-78.1681957,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x89b5ff1f8e2a0cc7:0xf33004bb7d1714a7!2m2!1d-78.166007!2d39.1751327!3e0">
+        <a
+          href="https://www.google.com/maps/dir//Win+Pre-Owned+Cars+Inc.,+1001+S+Kent+St,+Winchester,+VA+22601/@39.1751368,-78.1681957,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x89b5ff1f8e2a0cc7:0xf33004bb7d1714a7!2m2!1d-78.166007!2d39.1751327!3e0">
           <p>Win Pre-Owned Cars Inc.</p>
           <p>1001 S Kent St</p>
           <p>Winchester, VA 22601</p>
@@ -47,15 +48,15 @@
       <h4 class="links-footer__subtitle">Store Hours</h4>
       <li class="links-footer--item store-hours">
         <span class="day">Mon</span>
-        <span class="times">Closed</span>
+        <span class="times">By Appt.</span>
       </li>
       <li class="links-footer--item store-hours">
         <span class="day">Tue</span>
-        <span class="times">Closed</span>
+        <span class="times">By Appt.</span>
       </li>
       <li class="links-footer--item store-hours">
         <span class="day">Wed</span>
-        <span class="times">Closed</span>
+        <span class="times">By Appt.</span>
       </li>
       <li class="links-footer--item store-hours">
         <span class="day">Thu</span>
@@ -71,13 +72,14 @@
       </li>
       <li class="links-footer--item store-hours">
         <span class="day">Sun</span>
-        <span class="times">Closed</span>
+        <span class="times">By Appt.</span>
       </li>
     </ul>
-    <h3 class="copyright">Copyright &copy; Win Pre-Owned Cars Inc. {{currentYear}}. All Rights Reserved</h3>
+    <h3 class="copyright">Copyright &copy; Win Pre-Owned Cars Inc. {{ currentYear }}. All Rights Reserved</h3>
     <div class="below-footer">
       <p>Powered via <img src="~/assets/svg/nuxt-logo.svg" alt="" class="nuxt"> &
-        <img src="~/assets/svg/sanity-logo.svg" alt="" class="sanity" /> &#124; <span class="hosted-on">Hosted on</span> <img src="~/assets/svg/netlify-logo.svg" alt="" class="netlify" />
+        <img src="~/assets/svg/sanity-logo.svg" alt="" class="sanity" /> &#124; <span class="hosted-on">Hosted on</span>
+        <img src="~/assets/svg/netlify-logo.svg" alt="" class="netlify" />
       </p>
     </div>
   </footer>
@@ -96,7 +98,9 @@ const currentYear = computed(() => {
 });
 </script>
   
-  <style lang="scss" scoped>
+<style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .footer {
   position: relative;
   width: 100%;
@@ -127,6 +131,7 @@ const currentYear = computed(() => {
       height: 100%;
     }
   }
+
   .links-footer {
     &__subtitle {
       font-size: 2.5rem;
@@ -142,6 +147,7 @@ const currentYear = computed(() => {
       // align-self: center;
 
       a {
+
         &,
         &:link,
         &:visited {
@@ -153,7 +159,7 @@ const currentYear = computed(() => {
 
         &:hover,
         &:active {
-          color: $colour-primary;
+          color: abstracts.$colour-primary;
           -webkit-box-shadow: 0 1rem 2rem rgb(0 0 0 / 40%);
           box-shadow: 0 1rem 2rem rgb(0 0 0 / 40%);
           -webkit-transform: rotate(5deg);
@@ -173,7 +179,7 @@ const currentYear = computed(() => {
       flex-direction: column;
 
       //TODO: adjust css code to be cleaner later
-      & > *:not(:last-child) {
+      &>*:not(:last-child) {
         margin-bottom: 1rem;
       }
     }
@@ -195,6 +201,7 @@ const currentYear = computed(() => {
       text-decoration: none;
       // text-transform: uppercase;
       display: inline-block;
+
       // -webkit-transition: all 0.2s;
       // transition: all 0.2s;
       &.phone {
@@ -204,6 +211,7 @@ const currentYear = computed(() => {
           filter: invert(23%) sepia(80%) saturate(2901%) hue-rotate(355deg) brightness(101%) contrast(81%);
         }
       }
+
       // NOTE: REPEATED code.
       // TODO: refactor later
       &.email {
@@ -219,10 +227,12 @@ const currentYear = computed(() => {
       &.store-hours {
         display: flex;
         margin-bottom: 0.35rem;
+
         .day {
           margin-right: 5rem;
           width: 2.5rem;
         }
+
         .times {
           // width: 100%;
           align-self: flex-start;
@@ -244,7 +254,7 @@ const currentYear = computed(() => {
   grid-column: 1 / -1;
   grid-row: 4 / 5;
   width: 100%;
-  background-color: $colour-noir;
+  background-color: abstracts.$colour-noir;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,7 +1,7 @@
 <template>
   <ul class="price-container">
     <li v-for="(currentPrice, index) in priceRanges" :key="index" class="price">
-      <NuxtLink :to="{path: `inventory`, query: {priceLevel: currentPrice.level}}">
+      <NuxtLink :to="{ path: `inventory`, query: { priceLevel: currentPrice.level } }">
         <img :src="types[iconName]" alt="">
         <h4>{{ currentPrice.range }}</h4>
       </NuxtLink>
@@ -45,6 +45,8 @@ const iconName = "car-price";
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .price-container {
   list-style: none;
 
@@ -73,14 +75,14 @@ const iconName = "car-price";
       &:link,
       &:visited {
         text-decoration: none;
-        color: $colour-primary;
+        color: abstracts.$colour-primary;
       }
 
       &:hover,
       &:active {
         font-weight: bolder;
-        background-color: $colour-primary;
-        color: $colour-blanc;
+        background-color: abstracts.$colour-primary;
+        color: abstracts.$colour-blanc;
 
         img {
           filter: invert(100%) sepia(9%) saturate(0%) hue-rotate(80deg) brightness(107%) contrast(107%);

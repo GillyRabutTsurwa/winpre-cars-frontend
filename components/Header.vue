@@ -52,6 +52,8 @@ const toggleMode = () => {
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .header {
   width: 100%;
   height: 9rem;
@@ -63,7 +65,7 @@ const toggleMode = () => {
   justify-content: space-between;
   align-items: center;
   // background-image: linear-gradient(to right, gold, $colour-primary); //NOTE: save this to show Saber's mum
-  background-image: linear-gradient(to right, $background-blanc, $colour-primary); //NOTE: save this to show Saber's mum
+  background-image: linear-gradient(to right, abstracts.$background-blanc, abstracts.$colour-primary); //NOTE: save this to show Saber's mum
 
   // transform: translate3d(0, 0, 0);
   // transform-style: preserver-3d;
@@ -94,7 +96,7 @@ const toggleMode = () => {
         &,
         &:link,
         &:visited {
-          color: $colour-blanc;
+          color: abstracts.$colour-blanc;
           text-transform: uppercase;
           text-decoration: none;
           font-weight: 700;
