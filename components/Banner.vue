@@ -1,14 +1,9 @@
 <script setup>
+const photoIndex = ref(0);
+const images = data.value[0].images;
+
 const query = groq`*[_type=="bannerImages"]`;
 const { data, error } = await useSanityQuery(query);
-
-const images = data.value[0].images;
-console.log(images);
-
-// images.forEach((currentImg) => {
-//   console.log(currentImg.asset._ref)
-// })
-const photoIndex = ref(0);
 
 onMounted(() => {
   setInterval(() => {
@@ -21,8 +16,6 @@ onMounted(() => {
 
 <template>
   <figure>
-    <!-- <img v-for="(currentImg, index) in images" :src="currentImg.asset._ref" :class="{ opaque: index === photoIndex }"
-              alt="car banner img" /> -->
     <SanityImage v-for="(currentImg, index) in images" :asset-id="currentImg.asset._ref"
       :class="{ opaque: index === photoIndex }" />
   </figure>
