@@ -23,10 +23,17 @@ onMounted(() => {
 
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 figure {
   position: relative;
   width: 100%;
   height: calc(100vh - 15rem);
+
+  @include abstracts.breakpoint(480) {
+    height: calc(40vh - 15rem);
+  }
+
 
   & img {
     position: absolute;

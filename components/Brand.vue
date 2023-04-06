@@ -20,6 +20,8 @@ const logos = ["toyota", "honda", "hyundai", "chevrolet", "kia", "dodge", "mazda
 
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 // NOTE: this is a grid item
 .brand-container {
   width: 75%;
@@ -29,6 +31,10 @@ const logos = ["toyota", "honda", "hyundai", "chevrolet", "kia", "dodge", "mazda
   flex-wrap: wrap;
   justify-content: space-around;
 
+  @include abstracts.breakpoint(480) {
+    width: 100%;
+  }
+
   img {
     width: 15rem;
     height: 15rem;
@@ -36,6 +42,13 @@ const logos = ["toyota", "honda", "hyundai", "chevrolet", "kia", "dodge", "mazda
     // NOTE: found grayscaling solution for svgs thanks to: https://codepen.io/sosuke/pen/Pjoqqp
     //NOTE: the colour I put in the input was #444
     filter: invert(24%) sepia(2%) saturate(0%) hue-rotate(342deg) brightness(96%) contrast(86%);
+
+    @include abstracts.breakpoint(480) {
+      width: 10rem;
+      height: 10rem;
+      margin: 1rem;
+      filter: none;
+    }
 
     &:hover {
       filter: none;

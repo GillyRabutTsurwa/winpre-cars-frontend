@@ -25,7 +25,7 @@
         </a>
       </li>
       <li class="links-footer--item email">
-        <a href="mailto:winprecars@yahoo.com">
+        <a href="mailto:winprecars@yahoo.com" style="display: flex;">
           <img src="~/assets/svg/mail.svg" alt="">
           <span>winprecars@yahoo.com</span>
         </a>
@@ -102,18 +102,18 @@ const currentYear = computed(() => {
 @use "@/assets/sass/abstracts" as abstracts;
 
 .footer {
-  // position: relative;
   width: 100%;
-  // height: 60rem;
-  // height: 65rem;
-  // padding: 0 4rem;
-
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 1fr) 10rem;
   place-items: center;
   // align-content: center;
   row-gap: 2.5rem;
+
+  @include abstracts.breakpoint(480) {
+    grid-template-rows: repeat(5, min-content);
+    align-items: center;
+  }
 
   .logo {
     // width: 15rem;
@@ -126,6 +126,12 @@ const currentYear = computed(() => {
     left: 20%;
 
     background-color: transparent;
+
+    @include abstracts.breakpoint(480) {
+      width: 15rem;
+      height: 15rem;
+      margin-top: 5rem;
+    }
 
     img {
       height: 100%;
@@ -171,12 +177,23 @@ const currentYear = computed(() => {
     &__address {
       grid-column: 1 / 2;
       text-align: center;
+
+      @include abstracts.breakpoint(480) {
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+      }
+
     }
 
     &__contact {
       grid-column: 2 / 3;
       display: flex;
       flex-direction: column;
+
+      @include abstracts.breakpoint(480) {
+        grid-column: 3 / 4;
+        grid-row: 2 / 3;
+      }
 
       //TODO: adjust css code to be cleaner later
       &>*:not(:last-child) {
@@ -186,13 +203,23 @@ const currentYear = computed(() => {
 
     &__follow {
       grid-column: 3 / 4;
+
+      @include abstracts.breakpoint(480) {
+        grid-column: 1 / -1;
+        grid-row: 3 / 4;
+      }
+
     }
 
     &__store-hours {
       grid-column: 4 / 5;
       list-style: none;
-      // display: grid;
-      // grid-template-columns: repeat(2, max-content);
+
+      @include abstracts.breakpoint(480) {
+        grid-column: 1 / -1;
+        grid-row: 4 / 5;
+      }
+
     }
 
     &--item:not(.store-hours) {
@@ -245,12 +272,16 @@ const currentYear = computed(() => {
     grid-row: 3 / 4;
     grid-column: 2 / 3; //NOTE: 3 / 4 est aussi bien
     text-align: center;
+
+    @include abstracts.breakpoint(480) {
+      grid-column: 1 / -1;
+      grid-row: 5 / 6;
+    }
+
   }
 }
 
 .below-footer {
-  position: absolute; // parent is .footer
-  bottom: 0;
   grid-column: 1 / -1;
   grid-row: 4 / 5;
   width: 100%;
@@ -259,6 +290,12 @@ const currentYear = computed(() => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @include abstracts.breakpoint(480) {
+    grid-column: 1 / -1;
+    grid-row: 6 / 7;
+    text-align: center;
+  }
 
   padding: 1.5rem 0;
 

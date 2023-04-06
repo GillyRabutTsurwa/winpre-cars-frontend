@@ -1,3 +1,44 @@
+<script setup>
+const route = useRoute();
+console.log(route);
+console.log(route.query);
+//capitalise helper function. eventually put in own composable
+const capitalise = (str) => `${str.charAt(0).toUpperCase()}${str.substring(1)}`;
+let queryProperty;
+let queryValue;
+for (const key in route.query) {
+  if (Object.hasOwnProperty.call(route.query, key)) {
+    const element = route.query[key];
+    console.log(key, element);
+    queryProperty = key;
+    queryValue = queryProperty === "brand" ? capitalise(element) : element;
+
+    // @todo - improve this code if it works
+    if (queryValue === "Bmw") queryValue = "BMW";
+  }
+}
+console.log(queryProperty, queryValue);
+const state = reactive({
+  cars: [],
+});
+/**
+ * NOTEIMPORTANT:
+ * upon looking at the code that handles the queries, the general query (for all cars) was not working
+ * this is because I was looking to see if the route.query object existed...
+ * ... but was not checking if there were any properties inside of it
+ * thus, this NEW solution checks to see if there are any properties inside the route.query object, ie, if it is an empty object or not
+ * if it is empty, it will do a general query for all the cars
+ */
+const query = Object.keys(route.query).length ? groq`*[_type == "car" && ${queryProperty} == "${queryValue}"]` : groq`*[_type == "car"]`;
+console.log(query);
+
+const { data, error } = await useSanityQuery(query);
+if (error.value) throw new Error(`Error Tings: ${error.value}`);
+console.log(data);
+state.cars = data.value;
+console.log(state.cars);
+</script>
+      
 <template>
   <menu class="car-list">
     <li v-for="currentCar in state.cars" :key="currentCar._id" class="car-list__item">
@@ -26,42 +67,6 @@
   </menu>
 </template>
 
-<script setup>
-const route = useRoute();
-console.log(route);
-console.log(route.query);
-//capitalise helper function. eventually put in own composable
-const capitalise = (str) => `${str.charAt(0).toUpperCase()}${str.substring(1)}`;
-let queryProperty;
-let queryValue;
-for (const key in route.query) {
-  if (Object.hasOwnProperty.call(route.query, key)) {
-    const element = route.query[key];
-    console.log(key, element);
-    queryProperty = key;
-    queryValue = queryProperty === "brand" ? capitalise(element) : element;
-  }
-}
-console.log(queryProperty, queryValue);
-const state = reactive({
-  cars: [],
-});
-/**
- * NOTEIMPORTANT:
- * upon looking at the code that handles the queries, the general query (for all cars) was not working
- * this is because I was looking to see if the route.query object existed...
- * ... but was not checking if there were any properties inside of it
- * thus, this NEW solution checks to see if there are any properties inside the route.query object, ie, if it is an empty object or not
- * if it is empty, it will do a general query for all the cars
- */
-const query = Object.keys(route.query).length ? groq`*[_type == "car" && ${queryProperty} == "${queryValue}"]` : groq`*[_type == "car"]`;
-
-const { data, error } = await useSanityQuery(query);
-if (error.value) throw new Error(`Error Tings: ${error.value}`);
-console.log(data);
-state.cars = data.value;
-console.log(state.cars);
-</script>
 
 <style lang="scss" scoped >
 @use "@/assets/sass/abstracts" as abstracts;
@@ -72,6 +77,10 @@ console.log(state.cars);
   grid-template-columns: repeat(auto-fit, minmax(35rem, 37.5rem));
   gap: 4rem;
   padding: 5rem 0 30rem 4rem; //NOTE: for now
+
+  @include abstracts.breakpoint(480) {
+    grid-template-rows: 1fr;
+  }
 
   &__item {
     // height: 40rem;

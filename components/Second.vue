@@ -5,7 +5,7 @@
       <img src="~/assets/img/banner-7.jpg" alt="">
     </div>
 
-    <div v-for="(currentParagraph, index) in state.paragraphs" :key="index" class="text">
+    <div v-for="(currentParagraph, index) in state.paragraphs" :key="index" class="text" :class="`text-${index}`">
       <span>{{ currentParagraph.description }}</span>
       <!-- NOTE: this conditional is to show one button in the last element section, even though two are rendered by default due to the code -->
       <a v-if="index === 1" href="mailto:winprecars@yahoo.com?subject=Scheduling%20a%20Test%20Drive"
@@ -40,6 +40,12 @@ state.paragraphs = data.value.reverse(); //NOTE: reversing the array so that the
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: min-content repeat(2, 60rem);
 
+  @include abstracts.breakpoint(480) {
+    grid-template-columns: 1fr;
+    row-gap: 4rem;
+    text-align: center;
+  }
+
   &__title {
     grid-column: 1 / -1;
     text-align: center;
@@ -61,6 +67,10 @@ state.paragraphs = data.value.reverse(); //NOTE: reversing the array so that the
     flex-direction: column; //NOTE: car j'ajoute une bouton
     justify-content: center;
     align-items: center;
+
+    &-0 {
+      grid-row: 2 / 3;
+    }
   }
 
   .photo-ou-video {
@@ -94,4 +104,5 @@ state.paragraphs = data.value.reverse(); //NOTE: reversing the array so that the
     border: none;
     background-color: abstracts.$colour-primary;
   }
-}</style>
+}
+</style>

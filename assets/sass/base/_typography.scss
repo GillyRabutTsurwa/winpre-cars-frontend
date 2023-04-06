@@ -1,7 +1,16 @@
+@use "../abstracts/" as abstracts;
 html {
     font-size: 62.5%;
     font-family: "Roboto", sans-serif;
     font-weight: 400;
+
+    @include abstracts.breakpoint(767) {
+        font-size: 50%;
+    }
+
+    @include abstracts.breakpoint(480) {
+        font-size: 42%;
+    }
 }
 
 body {

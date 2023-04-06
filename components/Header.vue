@@ -69,6 +69,10 @@ const toggleMode = () => {
   // transform: translate3d(0, 0, 0);
   // transform-style: preserver-3d;
   // backface-visibility: hidden;
+  @include abstracts.breakpoint(480) {
+    font-size: 1rem;
+    padding: 0;
+  }
 
   .logo {
     width: 11.5rem;
