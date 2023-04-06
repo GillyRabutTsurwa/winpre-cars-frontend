@@ -1,9 +1,9 @@
 <script setup>
-const photoIndex = ref(0);
-const images = data.value[0].images;
-
 const query = groq`*[_type=="bannerImages"]`;
 const { data, error } = await useSanityQuery(query);
+
+const photoIndex = ref(0);
+const images = data.value[0].images;
 
 onMounted(() => {
   setInterval(() => {

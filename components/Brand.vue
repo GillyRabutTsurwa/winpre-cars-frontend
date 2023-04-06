@@ -1,7 +1,7 @@
 <template>
   <div class="brand-container">
     <figure v-for="(currentLogo, index) in logos" :key="index">
-      <NuxtLink :to="{ path: 'inventory', query: { brand: currentLogo } }" aria-disabled="true">
+      <NuxtLink :to="{ name: 'inventory', query: { brand: currentLogo } }" aria-disabled="true">
         <img :src="images[currentLogo]" />
       </NuxtLink>
     </figure>
@@ -15,7 +15,7 @@ const images = Object.fromEntries(Object.entries(glob).map(([key, value]) => [fi
 
 const imageName = "bmw";
 console.log(images[imageName]);
-const logos = ["toyota", "honda", "hyundai", "chevrolet", "kia", "dodge", "mazda", "ford"];
+const logos = ["toyota", "honda", "hyundai", "chevrolet", "kia", "dodge", "mazda", "ford", "mitsubishi", "nissan", "volkswagen", "bmw", "audi", "mercedes", "gmc", "subaru", "acura", "lexus", "infiniti"];
 </script>
 
 
@@ -32,7 +32,7 @@ const logos = ["toyota", "honda", "hyundai", "chevrolet", "kia", "dodge", "mazda
   img {
     width: 15rem;
     height: 15rem;
-    margin-right: 15rem;
+    margin: 5rem;
     // NOTE: found grayscaling solution for svgs thanks to: https://codepen.io/sosuke/pen/Pjoqqp
     //NOTE: the colour I put in the input was #444
     filter: invert(24%) sepia(2%) saturate(0%) hue-rotate(342deg) brightness(96%) contrast(86%);

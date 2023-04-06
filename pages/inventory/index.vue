@@ -74,10 +74,12 @@ console.log(state.cars);
   padding: 5rem 0 30rem 4rem; //NOTE: for now
 
   &__item {
-    height: 45rem;
+    // height: 40rem;
     box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 15%);
 
     &--image {
+      height: 40rem;
+
       img {
         width: 100%;
         height: 100%;
@@ -152,7 +154,7 @@ console.log(state.cars);
     &--links {
       display: flex;
       justify-content: space-around;
-      margin-top: 3rem;
+      margin: 3rem 0;
     }
   }
 }

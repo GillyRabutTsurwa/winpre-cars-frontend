@@ -102,10 +102,10 @@ const currentYear = computed(() => {
 @use "@/assets/sass/abstracts" as abstracts;
 
 .footer {
-  position: relative;
+  // position: relative;
   width: 100%;
   // height: 60rem;
-  height: 65rem;
+  // height: 65rem;
   // padding: 0 4rem;
 
   display: grid;

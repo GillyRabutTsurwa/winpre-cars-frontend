@@ -28,11 +28,12 @@ const tabs = {
 @use "@/assets/sass/abstracts" as abstracts;
 
 .shop {
-  height: 95vh;
+  // height: 95vh;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, min-content) 1fr;
   gap: 4rem;
+  padding-bottom: 4rem;
 
   padding: 6rem;
 
