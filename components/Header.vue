@@ -7,7 +7,7 @@
     </div>
     <ul class="links-main">
       <li class="links-main--item">
-        <NuxtLink to="/inventory">Cars</NuxtLink>
+        <NuxtLink to="/inventory">Inventory</NuxtLink>
       </li>
       <li class="links-main--item">
         <NuxtLink to="/about">About Us</NuxtLink>
@@ -48,7 +48,6 @@ const toggleMode = () => {
   // send that togglable value to the parent
   emit("test", currentMode.value);
 };
-// =======================================
 </script>
 
 <style lang="scss" scoped>
