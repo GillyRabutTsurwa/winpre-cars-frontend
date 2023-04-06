@@ -48,7 +48,6 @@ const toggleMode = () => {
   // send that togglable value to the parent
   emit("test", currentMode.value);
 };
-// =======================================
 </script>
 
 <style lang="scss" scoped>
