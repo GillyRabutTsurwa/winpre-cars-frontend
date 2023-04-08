@@ -67,10 +67,6 @@ state.paragraphs = data.value.reverse(); //NOTE: reversing the array so that the
     flex-direction: column; //NOTE: car j'ajoute une bouton
     justify-content: center;
     align-items: center;
-
-    &-0 {
-      grid-row: 2 / 3;
-    }
   }
 
   .photo-ou-video {
