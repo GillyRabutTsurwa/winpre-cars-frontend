@@ -2,6 +2,7 @@
 const route = useRoute();
 console.log(route);
 console.log(route.query);
+
 //capitalise helper function. eventually put in own composable
 const capitalise = (str) => `${str.charAt(0).toUpperCase()}${str.substring(1)}`;
 let queryProperty;
@@ -12,38 +13,41 @@ for (const key in route.query) {
     console.log(key, element);
     queryProperty = key;
     queryValue = queryProperty === "brand" ? capitalise(element) : element;
-
     // @todo - improve this code if it works
     if (queryValue === "Bmw") queryValue = "BMW";
   }
 }
 console.log(queryProperty, queryValue);
+
 const state = reactive({
   cars: [],
 });
-/**
- * NOTEIMPORTANT:
- * upon looking at the code that handles the queries, the general query (for all cars) was not working
- * this is because I was looking to see if the route.query object existed...
- * ... but was not checking if there were any properties inside of it
- * thus, this NEW solution checks to see if there are any properties inside the route.query object, ie, if it is an empty object or not
- * if it is empty, it will do a general query for all the cars
- */
+
 const query = Object.keys(route.query).length ? groq`*[_type == "car" && ${queryProperty} == "${queryValue}"]` : groq`*[_type == "car"]`;
 console.log(query);
 
 const { data, error } = await useSanityQuery(query);
 if (error.value) throw new Error(`Error Tings: ${error.value}`);
-console.log(data);
-state.cars = data.value;
+state.cars = data;
 console.log(state.cars);
+
+const imgURLS = state.cars.map((currentCar) => {
+  return currentCar.defaultCarData.images[0];
+})
+
+console.log(imgURLS);
+const z = imgURLS.map((currentCar) => {
+  return currentCar.asset._ref;
+})
+console.log(z)
+
 </script>
       
 <template>
   <menu class="car-list">
-    <li v-for="currentCar in state.cars" :key="currentCar._id" class="car-list__item">
+    <li v-for="(currentCar, index) in state.cars" :key="currentCar._id" class="car-list__item">
       <div class="car-list__item--image">
-        <SanityImage :asset-id="currentCar.defaultCarData.images[0].asset._ref" />
+        <SanityImage :asset-id="z[index]" />
       </div>
       <h2 class="title">{{ `${currentCar.year} ${currentCar.brand} ${currentCar.model}` }}</h2>
       <div class="car-list__item--data">
@@ -59,7 +63,6 @@ console.log(state.cars);
       <hr>
       <div class="car-list__item--links">
         <NuxtLink :to="`/inventory/${currentCar.slug.current}`" class="btn-primary">More Info</NuxtLink>
-        <!-- NEWNOTE: using the mailto links truc i just learnt to redirect user to an email with a dynamic subject based on car clicked. very neat -->
         <a :href="`mailto:winprecars@yahoo.com?subject=Requesting%20Info%20on%20${currentCar.year} ${currentCar.brand} ${currentCar.model}`"
           class="btn-primary">Request Info</a>
       </div>
