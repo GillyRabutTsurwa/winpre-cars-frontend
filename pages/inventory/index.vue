@@ -3,8 +3,10 @@ const route = useRoute();
 console.log(route);
 console.log(route.query);
 
-//capitalise helper function. eventually put in own composable
+// @todo: Make Helper Function or Composable For Below Function
+// this function is better placed someplace else where it is globally accessible. ie, helper or composable
 const capitalise = (str) => `${str.charAt(0).toUpperCase()}${str.substring(1)}`;
+
 let queryProperty;
 let queryValue;
 for (const key in route.query) {
