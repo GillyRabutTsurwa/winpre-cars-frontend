@@ -2,7 +2,7 @@
   <div class="car">
     <div class="image-container">
       <div class="main-image">
-        <SanityImage :asset-id="imgTest[mainImageIndex]" auto="format" />
+        <SanityImage :asset-id="imgTest[mainImageIndex]" auto="format" @click="showModal = true" />
       </div>
       <div class="images">
         <SanityImage v-for="(currentImg, index) in imgTest" :key="index" @click="fetchIndex(index)" :asset-id="currentImg"
@@ -49,15 +49,20 @@
         class="btn-primary car-interested__button">Financing</a>
     </div>
   </div>
+  <Teleport to="body">
+    <Modal :show="showModal" :modalImg="imgTest[mainImageIndex]" @close="showModal = false" @previous="showPrevImg"
+      @next="showNextImg">
+      <template #header>
+        <h3>custom header</h3>
+      </template>
+    </Modal>
+  </Teleport>
 </template>
 
 <script setup>
 const route = useRoute();
 const url = route.params.slug;
-console.log(url);
-console.log(typeof url);
 
-// NEW: our first nuxt composable
 const { format } = useFormatNum();
 console.log(useFormatNum());
 
@@ -68,16 +73,10 @@ const state = reactive({
 
 let imgTest;
 
-/**
- * NOTE: this works. for dynamic variables.
- * it seems using the the template literal syntaxe wrapped in quotes does the job: "${variableName}"
- * IMPORTANT: doing it without the quotes did not work: ${variableName}
- *
- * furthermore, a good resource that helped me on writing the appropriate GROQ query can be found in this link:
- * https://www.sanity.io/docs/slug-type
- */
+// NEW:
+const showModal = ref(false)
 
-//NOTE: getting problems with the async iife on this page
+
 try {
   const query = groq`*[_type=="car" && slug.current == "${url}"]`;
   const { data, error } = await useSanityQuery(query);
@@ -101,14 +100,18 @@ const fetchIndex = (imageIndex) => {
   mainImageIndex.value = imageIndex;
 };
 
-//NOTE: and use this index as a computed property to be used in the template
-// const imageIndex = computed(() => {
-//   return fetchIndex();
-// });
+const showPrevImg = () => {
+  if (mainImageIndex.value <= 0) mainImageIndex.value = imgTest.length;
+  mainImageIndex.value -= 1;
+  console.log(mainImageIndex.value);
+}
 
-watchEffect(() => {
-  // console.log(imageIndex.value);
-});
+const showNextImg = () => {
+  if (mainImageIndex.value >= imgTest.length - 1) mainImageIndex.value = 0;
+  mainImageIndex.value += 1;
+  console.log(mainImageIndex.value);
+
+}
 </script>
 
 <style lang="scss" scoped>

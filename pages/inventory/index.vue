@@ -13,7 +13,6 @@ for (const key in route.query) {
     console.log(key, element);
     queryProperty = key;
     queryValue = queryProperty === "brand" ? capitalise(element) : element;
-    // @todo - improve this code if it works
     if (queryValue === "Bmw") queryValue = "BMW";
   }
 }
