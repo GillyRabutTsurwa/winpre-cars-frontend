@@ -51,11 +51,7 @@
   </div>
   <Teleport to="body">
     <Modal :show="showModal" :modalImg="imgTest[mainImageIndex]" @close="showModal = false" @previous="showPrevImg"
-      @next="showNextImg">
-      <template #header>
-        <h3>custom header</h3>
-      </template>
-    </Modal>
+      @next="showNextImg" />
   </Teleport>
 </template>
 
