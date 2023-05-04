@@ -26,7 +26,9 @@
 </template>
 
 <script setup>
-// NOTE: no longer active (for the moment)
+//  @todo: Study & Implement Dark Mode
+//  Do some research on dark mode, particularly with Nuxt, in order to apply it to the website
+//  labels: priority low
 const emit = defineEmits(["test"]);
 
 const isDark = ref(false);
@@ -48,6 +50,10 @@ const toggleMode = () => {
   // send that togglable value to the parent
   emit("test", currentMode.value);
 };
+// @todo: Dynamic Sticky Header on Scroll
+// Use IntersectionObserver to make the header sticky past the certain point
+// As the user continues to scroll down, past the banner, the header should stick to the page
+// labels: enhancement
 </script>
 
 <style lang="scss" scoped>
@@ -57,18 +63,11 @@ const toggleMode = () => {
   width: 100%;
   height: 9rem;
   padding: 0 2rem;
-
-  // position: fixed; //TODO - le rendre dynamique en utilisant intersecionObserver
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // background-image: linear-gradient(to right, gold, $colour-primary); //NOTE: save this to show Saber's mum
-  background-image: linear-gradient(to right, abstracts.$background-blanc, abstracts.$colour-primary); //NOTE: save this to show Saber's mum
+  background-image: linear-gradient(to right, abstracts.$background-blanc, abstracts.$colour-primary);
 
-  // transform: translate3d(0, 0, 0);
-  // transform-style: preserver-3d;
-  // backface-visibility: hidden;
   @include abstracts.breakpoint(480) {
     font-size: 1rem;
     padding: 0;

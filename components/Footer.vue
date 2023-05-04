@@ -195,7 +195,6 @@ const currentYear = computed(() => {
         grid-row: 2 / 3;
       }
 
-      //TODO: adjust css code to be cleaner later
       &>*:not(:last-child) {
         margin-bottom: 1rem;
       }
@@ -229,8 +228,10 @@ const currentYear = computed(() => {
       // text-transform: uppercase;
       display: inline-block;
 
-      // -webkit-transition: all 0.2s;
-      // transition: all 0.2s;
+
+
+      // @todo: Refactor Below CSS Code
+      // Use a Sass mixin to get rid of this repetitive code
       &.phone {
         img {
           height: 1.5rem;
@@ -239,8 +240,6 @@ const currentYear = computed(() => {
         }
       }
 
-      // NOTE: REPEATED code.
-      // TODO: refactor later
       &.email {
         img {
           height: 1.5rem;
@@ -314,8 +313,6 @@ const currentYear = computed(() => {
 
     .nuxt {
       height: 3rem;
-      // width: 4rem;
-      // font-size: 4rem;
       position: relative;
       top: 0.5rem;
     }

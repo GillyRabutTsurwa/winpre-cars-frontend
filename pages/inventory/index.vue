@@ -3,7 +3,7 @@ const route = useRoute();
 console.log(route);
 console.log(route.query);
 
-// @todo: Testing Annnnother Action With Changed Workflow
+// @todo: Make Composable or Helper Function for Below Function
 const capitalise = (str) => `${str.charAt(0).toUpperCase()}${str.substring(1)}`;
 
 let queryProperty;
@@ -171,7 +171,8 @@ console.log(z)
   }
 }
 
-//TODO; make mixin or extends this code is being used multiple places
+// @todo: Make Code Below into a Mixin
+// This code is being everywhere, and therefore needs to be made into a mixin
 .btn-primary {
 
   &,
