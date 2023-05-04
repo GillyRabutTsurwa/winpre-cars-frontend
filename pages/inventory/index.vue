@@ -7,6 +7,9 @@ console.log(route.query);
 // this function is better placed someplace else where it is globally accessible. ie, helper or composable
 const capitalise = (str) => `${str.charAt(0).toUpperCase()}${str.substring(1)}`;
 
+// @todo: Come up with a more imaginative greeting
+
+
 let queryProperty;
 let queryValue;
 for (const key in route.query) {
