@@ -17,3 +17,9 @@ jobs:
               uses: alstr/todo-to-issue-action@v4
               with:
                   AUTO_ASSIGN: true
+                  IDENTIFIERS: '[
+                    {
+                      "name": "@todo",
+                      "labels": ["todo"]
+                    }
+                  ]'

@@ -3,13 +3,9 @@ const route = useRoute();
 console.log(route);
 console.log(route.query);
 
-// TODO: Make Helper Function or Composable For Below Function
-// this function is better placed someplace else where it is globally accessible. ie, helper or composable
+// @todo: Testing Annnnother Action With Changed Workflow
 const capitalise = (str) => `${str.charAt(0).toUpperCase()}${str.substring(1)}`;
 
-// TODO: Come up with a more imaginative greeting
-
-// TODO: make one more just for good measure
 let queryProperty;
 let queryValue;
 for (const key in route.query) {
