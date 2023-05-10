@@ -2,7 +2,7 @@
   <div class="container" ref="container">
     <Header ref="header" />
     <slot />
-    <Footer />
+    <!-- <Footer /> -->
   </div>
 </template>
 
