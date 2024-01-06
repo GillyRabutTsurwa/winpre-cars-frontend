@@ -5,6 +5,7 @@
 </template>
 
 <style lang="scss">
+// TODO: clean up the whole ting
 @use "@/assets/sass/abstracts" as abstracts;
 
 div {
